@@ -1,0 +1,32 @@
+{
+  "todos": [
+    {
+      "id": ":r1:",
+      "title": "Comprar leche",
+      "date": "2024-08-06T09:00:00.000Z",
+      "description": "Leche, pan, mantequilla",
+      "priority": "High"
+    },
+    {
+      "id": ":r2:",
+      "title": "Aprender React",
+      "date": "2024-08-24T18:49:00.000Z",
+      "description": "Estudiar la documentación de React",
+      "priority": "Medium"
+    },
+    {
+      "id": ":r3:",
+      "title": "Hacer ejercicio",
+      "date": "2024-08-07T07:00:00.000Z",
+      "description": "1 hora en el gimnasio",
+      "priority": "Low"
+    },
+    {
+      "id": ":r1:",
+      "title": "Terminar app ",
+      "date": "2024-08-31T18:53:00.000Z",
+      "description": "D que te tengo q hacer un favor de mandarme la ubicación de los demas de los grupos y los pibes de los demas y el nacho de ",
+      "priority": "Low"
+    }
+  ]
+}
