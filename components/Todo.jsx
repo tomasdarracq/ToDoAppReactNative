@@ -37,36 +37,32 @@ export function Todo({ todoList, setTodoList }) {
       {todoList.length === 0 ? (
         <Text style={styles.noTodosText}>No todos available</Text>
       ) : (
-        todoList
-          .sort((a, b) => {
-            return Date.parse(a.date) - Date.parse(b.date);
-          })
-          .map((todo) => (
-            <View key={todo.id} style={styles.todoItem}>
-              <Text style={styles.title}>{todo.title}</Text>
-              <Text style={styles.description}>{todo.description}</Text>
-              <Text style={styles.date}>
-                {new Date(todo.date).toLocaleDateString()}
-              </Text>
-              <View
-                style={[
-                  styles.priorityContainer,
-                  getPriorityStyle(todo.priority),
-                ]}
-              >
-                <Text style={styles.priorityText}>{todo.priority}</Text>
-              </View>
-              <View style={styles.checkTodo}>
-                <TouchableOpacity
-                  onPress={() => {
-                    handleDelete(todo.id);
-                  }}
-                >
-                  <Text style={styles.doneText}>Done</Text>
-                </TouchableOpacity>
-              </View>
+        todoList.map((todo) => (
+          <View key={todo.id + Date.now().toString()} style={styles.todoItem}>
+            <Text style={styles.title}>{todo.title}</Text>
+            <Text style={styles.description}>{todo.description}</Text>
+            <Text style={styles.date}>
+              {new Date(todo.date).toLocaleDateString()}
+            </Text>
+            <View
+              style={[
+                styles.priorityContainer,
+                getPriorityStyle(todo.priority),
+              ]}
+            >
+              <Text style={styles.priorityText}>{todo.priority}</Text>
             </View>
-          ))
+            <View style={styles.checkTodo}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleDelete(todo.id);
+                }}
+              >
+                <Text style={styles.doneText}>Done</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ))
       )}
     </ScrollView>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import useTodos from "../hooks/useTodos";
 import { Todo } from "../components/Todo.jsx";
@@ -6,31 +6,41 @@ import { FAB } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { CreateTodo } from "../app/CreateTodo.jsx";
 import { TodosContext } from "../context/TodosContext";
+import { FiltersContext } from "../context/FiltersContext";
+import { Filters } from "../components/Filters.jsx";
 
 export function Homepage() {
-  const [modalVisible, setModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
+  const [modalVisible, setModalVisible] = useState(false);
   const { todos } = useTodos();
   const { setTodos } = useContext(TodosContext);
+  const { filterTodos } = useContext(FiltersContext);
+  const [filteredTodos, setFilteredTodos] = useState([]);
+
+  useEffect(() => {
+    const fetchFilteredTodos = async () => {
+      const result = await filterTodos(todos);
+      setFilteredTodos(result);
+    };
+    fetchFilteredTodos();
+  }, [todos, filterTodos]); // Recalcular cuando `todos` o `filterTodos` cambien
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Todo List</Text>
       </View>
+      <Filters />
 
-      {/* Componente que muestra los "todos" */}
-      <Todo todoList={todos} setTodoList={setTodos} />
+      <Todo todoList={filteredTodos} setTodoList={setTodos} />
 
-      {/* Componente CreateTodo para manejar el formulario en el modal */}
       <CreateTodo
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />
 
-      {/* Botón FAB que abre el modal */}
       <View style={styles.fabContainer}>
         <FAB
-          onPress={() => setModalVisible(true)} // Abre el modal cuando se presiona el botón
+          onPress={() => setModalVisible(true)}
           icon={(props) => <Icon name="plus" {...props} />}
           color="primary"
         />
